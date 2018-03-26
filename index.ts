@@ -3,39 +3,35 @@ import { fib } from './fib.rs';
 
 let t0, t1, result;
 
-t0 = performance.now();
-result = add(1, 2);
-t1 = performance.now();
+// t0 = performance.now();
+// result = add(1, 2);
+// t1 = performance.now();
 
-console.log(`rust/wasm add(1,2) took ${t1-t0} ms. result: ${result}`);
+// console.log(`rust/wasm add(1,2) took ${t1-t0} ms. result: ${result}`);
 
-t0 = performance.now();
-result = 1 + 2;
-t1 = performance.now();
+// t0 = performance.now();
+// result = 1 + 2;
+// t1 = performance.now();
 
-console.log(`js 1 + 2 took ${t1-t0} ms. result: ${result}`);
+// console.log(`js 1 + 2 took ${t1-t0} ms. result: ${result}`);
 
-t0 = performance.now();
-result = fib(5);
-t1 = performance.now();
-
-console.log(`rust/wasm fib(5) took ${t1-t0} ms. result: ${result}`);
+const N = 30;
 
 t0 = performance.now();
-result = fibonacci(5)
+result = fib(N);
 t1 = performance.now();
 
-console.log(`js fibonacci(5) took ${t1-t0} ms. result: ${result}`);
+console.log(`rust/wasm recursive fib(${N}) took ${t1-t0} ms. result: ${result}`);
 
-function fibonacci(n){
-  let a = 1, b = 0, temp;
+t0 = performance.now();
+result = fibonacci(N)
+t1 = performance.now();
 
-  while (n >= 0){
-    temp = a;
-    a = a + b;
-    b = temp;
-    n--;
-  }
+console.log(`js recursive fibonacci(${N}) took ${t1-t0} ms. result: ${result}`);
 
-  return b;
+function fibonacci(num) {
+  if (num === 1 || num === 2) return 1;
+  else if (num === 3) return 2;
+
+  return fibonacci(num - 1) + fibonacci(num - 2);
 }
